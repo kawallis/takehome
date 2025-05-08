@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/types/table";
+import { User } from "@/data/users";
 import { UserAvatar } from "./UserAvatar";
 
 export interface UserPillProps {

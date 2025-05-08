@@ -1,7 +1,7 @@
 "use client";
 
+import { User } from "@/data/users";
 import Image from "next/image";
-import { User } from "@/types/table";
 
 export interface UserAvatarProps {
   user: User;

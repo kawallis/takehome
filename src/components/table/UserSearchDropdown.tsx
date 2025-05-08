@@ -2,7 +2,7 @@
 
 import { CheckIcon } from "@heroicons/react/20/solid";
 import React, { useRef, useEffect } from "react";
-import { User } from "@/types/table";
+import { User } from "@/data/users";
 
 export interface UserSearchDropdownProps {
   isOpen: boolean;
@@ -28,7 +28,10 @@ export const UserSearchDropdown: React.FC<UserSearchDropdownProps> = ({
   useEffect(() => {
     if (!isOpen) return;
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     }
@@ -48,7 +51,10 @@ export const UserSearchDropdown: React.FC<UserSearchDropdownProps> = ({
         );
 
   return (
-    <div ref={dropdownRef} className="absolute z-50 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200">
+    <div
+      ref={dropdownRef}
+      className="absolute z-50 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200"
+    >
       <div className="p-2">
         <input
           type="text"
