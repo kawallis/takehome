@@ -19,7 +19,6 @@ export function UserListCell({ value, onChange }: UserListCellProps) {
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState(false);
 
-  // Use the useUsers hook at the top level
   const { data: allUsers, isLoading, error } = useUsers();
 
   const handleSelect = (user: User) => {
@@ -27,9 +26,8 @@ export function UserListCell({ value, onChange }: UserListCellProps) {
     let newSelectedUsers: User[];
 
     if (isSelected) {
-      // Prevent removing the last user
       if (value.length === 1) {
-        return; // Do nothing if only one user is selected
+        return;
       }
       newSelectedUsers = value.filter((u) => u.id !== user.id);
     } else {
@@ -96,7 +94,6 @@ export function UserListCell({ value, onChange }: UserListCellProps) {
         )}
       </div>
 
-      {/* Show loading or error state, or the dropdown */}
       {isLoading ? (
         <div className="p-2">Loading users...</div>
       ) : error ? (
@@ -115,7 +112,6 @@ export function UserListCell({ value, onChange }: UserListCellProps) {
           }}
         />
       )}
-
     </div>
   );
 }
