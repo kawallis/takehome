@@ -1,12 +1,12 @@
 "use client";
 
 import Table from "@/components/table/Table";
+import TableSkeleton from "@/components/table/TableSkeleton";
 import { AnyColumnDef, CellContext } from "@/types/table";
 import { UserListCellContainer } from "./UserListCellContainer";
 import { User } from "@/data/users";
 
 import { ErrorState } from "../ui/ErrorState";
-import { LoadingState } from "../ui/LoadingState";
 import { usePlasmids } from "@/hooks/usePlasmids";
 
 interface PlasmidRow {
@@ -82,7 +82,7 @@ export default function TableContainer() {
   };
 
   if (isLoading) {
-    return <LoadingState message="Loading plasmids..." />;
+    return <TableSkeleton columns={columns} rowCount={8} />;
   }
 
   if (error) {
