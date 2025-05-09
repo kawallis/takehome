@@ -7,6 +7,7 @@ import { UserListCellContainer } from "./UserListCellContainer";
 import { User } from "@/data/users";
 
 import { ErrorState } from "../ui/ErrorState";
+import { Pagination } from "../ui/Pagination";
 import { usePlasmids } from "@/hooks/usePlasmids";
 
 interface PlasmidRow {
@@ -73,7 +74,15 @@ const columns: AnyColumnDef<PlasmidRow>[] = [
 ];
 
 export default function TableContainer() {
-  const { data: tableData, updateData, isLoading, error } = usePlasmids();
+  const {
+    data: tableData,
+    updateData,
+    isLoading,
+    error,
+    pagination,
+    setPage,
+    setPageSize,
+  } = usePlasmids();
 
   const handleChange = (rowIndex: number, columnId: string, value: unknown) => {
     const updatedData = [...tableData];
@@ -81,7 +90,7 @@ export default function TableContainer() {
     updateData(updatedData);
   };
 
-  if (isLoading) {
+  if (isLoading && tableData.length === 0) {
     return <TableSkeleton columns={columns} rowCount={8} />;
   }
 
@@ -91,5 +100,24 @@ export default function TableContainer() {
     );
   }
 
-  return <Table columns={columns} data={tableData} onChange={handleChange} />;
+  return (
+    <div className="">
+      <div className="">
+        {isLoading ? (
+          <TableSkeleton columns={columns} rowCount={8} />
+        ) : (
+          <Table columns={columns} data={tableData} onChange={handleChange} />
+        )}
+      </div>
+
+      <Pagination
+        currentPage={pagination.page}
+        totalPages={pagination.totalPages}
+        onPageChange={setPage}
+        pageSize={pagination.pageSize}
+        onPageSizeChange={setPageSize}
+        totalItems={pagination.total}
+      />
+    </div>
+  );
 }
